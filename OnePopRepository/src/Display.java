@@ -25,6 +25,7 @@ import javax.swing.JTextField;
 public class Display extends JFrame {
 	
 	public static void main(String[] args) {
+		Login.getUserNames();
 		EventQueue.invokeLater(new Runnable(){
             @Override
             public void run(){
@@ -35,18 +36,34 @@ public class Display extends JFrame {
 	
     private JSplitPane splitPane = new JSplitPane();  // split the window in top and bottom
     private JSplitPane bottomSplitPane = new JSplitPane(); //Split window from side to side
-    private JSplitPane middleSP = new JSplitPane();
+    private JSplitPane middleSP = new JSplitPane(); //Last split pane, top to bottom
+    
     private JPanel topPanel = new JPanel();
-    private JPanel rightPanel = new JPanel();
-    private JButton searchButton = new JButton("Search");
-    private JPanel input = new JPanel();
-    private JTextArea mainDisplay = new JTextArea();
-    private JScrollPane mainScroll = new JScrollPane();
+    private JLabel onePopLabel = new JLabel("One Pop");
+    private JButton loginButton = new JButton("Login");
+    
+    private JPanel leftPanel = new JPanel();
+    
     private JTextArea searchBar = new JTextArea();
     private JPanel searchPanel = new JPanel();
-    private JPanel leftPanel = new JPanel();
+    private JButton searchButton = new JButton("Search");
+    
+    private JPanel mainPanel = new JPanel();
+    private JTextArea mainDisplay = new JTextArea();
+    private JScrollPane mainScroll = new JScrollPane();
+    
+    private JPanel loginPanel = new JPanel();
+    
+    private JLabel uNameLabel = new JLabel("Plese enter user name: ");
+    private JTextArea uNameText = new JTextArea();
+    
+    private JLabel pWordLabel = new JLabel("Please enter password: ");
+    private JTextArea pWordText = new JTextArea();
+    private JButton enterButton = new JButton("Enter");
+    
 
 	public Display() {
+		//Creating the window
 		setTitle("One Pop Repository");
 		setPreferredSize(new Dimension(1280, 720));
 		setResizable(false);
@@ -58,6 +75,45 @@ public class Display extends JFrame {
 		splitPane.setEnabled(false);
 		splitPane.setTopComponent(topPanel);
 		splitPane.setBottomComponent(bottomSplitPane);
+		
+		topPanel.setLayout(new FlowLayout());
+		topPanel.add(onePopLabel);
+		topPanel.add(loginButton);
+		loginButton.addActionListener((new ActionListener() {
+			public void actionPerformed(ActionEvent a) {
+				middleSP.setBottomComponent(loginPanel);
+				loginPanel.add(uNameLabel);
+				loginPanel.add(uNameText);
+				uNameText.setColumns(80);
+				loginPanel.add(pWordLabel);
+				loginPanel.add(pWordText);
+				pWordText.setColumns(72);
+				loginPanel.add(enterButton);
+				repaint();
+			}
+		}));
+		
+		enterButton.addActionListener((new ActionListener() {
+			public void actionPerformed(ActionEvent a) {
+				String uName = uNameText.getText();
+				uNameText.setText("");
+				
+				String pWord = pWordText.getText();
+				pWordText.setText("");
+				
+				boolean login = Login.loginCheck(uName, pWord);
+				
+				if(login == false) {
+					actionPerformed(a);
+				} else {
+					middleSP.setBottomComponent(mainPanel);
+					mainPanel.add(new JLabel("Welcome: " + uName));
+					topPanel.remove(loginButton);
+					repaint();
+				}
+				
+			}
+		}));
 		
 		bottomSplitPane.setDividerLocation(200);
 		bottomSplitPane.setOrientation(JSplitPane.HORIZONTAL_SPLIT);
@@ -71,24 +127,16 @@ public class Display extends JFrame {
 		middleSP.setTopComponent(searchPanel);
 		searchBar.setSize(80, 25);
 		
-		searchPanel.setLayout(new GridLayout());
+		searchPanel.setLayout(new FlowLayout());
+		searchBar.setBounds(40, 39, 105, 20);
+		searchBar.setColumns(40);
 		searchPanel.add(searchBar);
 		searchPanel.add(searchButton);
-		//searchPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 75));
 		
-		middleSP.setBottomComponent(mainScroll);
+		middleSP.setBottomComponent(mainPanel);
+		mainPanel.add(mainScroll);
 		mainScroll.setViewportView(mainDisplay);
 		mainDisplay.setEditable(false);
-		
-		
-		
-		
-		
-		
-		
-//		rightPanel.add(searchBar);
-//		rightPanel.add(searchButton);
-//		rightPanel.add(mainDisplay); 
 		
 		pack();
 	}
