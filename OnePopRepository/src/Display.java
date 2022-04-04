@@ -26,6 +26,7 @@ public class Display extends JFrame {
 	
 	public static void main(String[] args) {
 		Login.getUserNames();
+		//App.getAppData();	
 		EventQueue.invokeLater(new Runnable(){
             @Override
             public void run(){
@@ -34,15 +35,18 @@ public class Display extends JFrame {
         });
 	}
 	
-    private JSplitPane splitPane = new JSplitPane();  // split the window in top and bottom
-    private JSplitPane bottomSplitPane = new JSplitPane(); //Split window from side to side
-    private JSplitPane middleSP = new JSplitPane(); //Last split pane, top to bottom
+    private JSplitPane splitPane = new JSplitPane();
+    private JSplitPane bottomSplitPane = new JSplitPane();
+    private JSplitPane middleSP = new JSplitPane();
     
     private JPanel topPanel = new JPanel();
     private JLabel onePopLabel = new JLabel("One Pop");
     private JButton loginButton = new JButton("Login");
     
     private JPanel leftPanel = new JPanel();
+    private JButton homePageB = new JButton("Home Page");
+    private JButton helpPageB = new JButton("Help Page");
+    private JButton loungePageB = new JButton("Lounge Page");
     
     private JTextArea searchBar = new JTextArea();
     private JPanel searchPanel = new JPanel();
@@ -79,6 +83,7 @@ public class Display extends JFrame {
 		topPanel.setLayout(new FlowLayout());
 		topPanel.add(onePopLabel);
 		topPanel.add(loginButton);
+		
 		loginButton.addActionListener((new ActionListener() {
 			public void actionPerformed(ActionEvent a) {
 				middleSP.setBottomComponent(loginPanel);
@@ -119,6 +124,9 @@ public class Display extends JFrame {
 		bottomSplitPane.setOrientation(JSplitPane.HORIZONTAL_SPLIT);
 		bottomSplitPane.setEnabled(false);
 		bottomSplitPane.setLeftComponent(leftPanel);
+		leftPanel.add(homePageB);
+		leftPanel.add(loungePageB);
+		leftPanel.add(helpPageB);
 		bottomSplitPane.setRightComponent(middleSP);
 		
 		middleSP.setDividerLocation(35);
@@ -140,5 +148,14 @@ public class Display extends JFrame {
 		
 		pack();
 	}
+	
+	private void changePage() {
+		
+	}
+	
+	private JButton makeLabel(App a) {
+		return new JButton(a.displayBasic());
+	}
+	
 
 }
