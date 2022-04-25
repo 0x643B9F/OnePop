@@ -2,57 +2,46 @@ Apple Fitness
 fitness
 Apple
 2015
-The first fitness service powered by Apple Watch. Offers 11 workout types, and guided meditations.
-Stay motivated with real‑time metrics, like your heart rate, onscreen.New workouts every week,
-from 5 to 45 minutes. Walk or run with audio-guided experiences using just your watch.
+The first fitness service powered by Apple Watch. Offers 11 workout types, and guided meditations. Stay motivated with real time metrics, like your heart rate, onscreen. New workouts every week, from 5 to 45 minutes. Walk or run with audio-guided experiences using just your watch.
 
 OneNote
 school
 Microsoft
 2012
-OneNote is your digital notebook for capturing and organizing everything across your devices.
-Jot down your ideas, keep track of classroom and meeting notes, clip from the web, or make a to-do list,
-as well as draw and sketch your ideas.
+OneNote is your digital notebook for capturing and organizing everything across your devices.  Jot down your ideas, keep track of classroom and meeting notes, clip from the web, or make a to-do list, as well as draw and sketch your ideas.
 
 Planner Pro- Daily Calendar
 school
 Google Play, Apple
 2018
-Designed for those people who’re looking for a full-featured app to manage daily life better.We combine events, 
-tasks and notes in one place so that you do not need to spend extra money for other apps, and it can be used as a 
-day planner, week planner and month planner.
+Designed for those people who are looking for a full-featured app to manage daily life better.We combine events, tasks and notes in one place so that you do not need to spend extra money for other apps, and it can be used as a day planner, week planner and month planner.
 
 My Fitness - app for strength training
 fitness
 Microsoft
 2013
-My Fitness is app based on fundamentally different philosophy. We are against pre-made typical training programs. 
-We deny training routine. We make training accessible in any setting: at home, in a gym, in a park, on a sports-ground.
+My Fitness is app based on fundamentally different philosophy. We are against pre-made typical training programs. We deny training routine. We make training accessible in any setting: at home, in a gym, in a park, on a sports-ground.
 	
 Google Fit: Activity Tracking
 fitness
 Google Play
 2014
-It's hard to know how much or what kind of activity you need to stay healthy. That's why Google Fit collaborated 
-with the World Health Organization (WHO) and the American Heart Association (AHA) to bring you Heart Points, an 
-activity goal that can help improve your health.
+It's hard to know how much or what kind of activity you need to stay healthy. That's why Google Fit collaborated with the World Health Organization (WHO) and the American Heart Association (AHA) to bring you Heart Points, an activity goal that can help improve your health.
 
 Classroom
 school
 Apple
 2016
-Classroom turns your Mac into a powerful teaching assistant, helping you guide students through a lesson, see their 
-progress, and keep them on track.
+Classroom turns your Mac into a powerful teaching assistant, helping you guide students through a lesson, see their progress, and keep them on track.
 
 Disney+
 entertainment
 Apple, Goolge Play, Microsoft
 2019
-Disney+ is the streaming home of your favorite stories. With unlimited entertainment from Disney, Pixar, Marvel, Star Wars 
-and National Geographic, there's always something to explore.
+Disney+ is the streaming home of your favorite stories. With unlimited entertainment from Disney, Pixar, Marvel, Star Wars and National Geographic, there's always something to explore.
 
 Netflix
 entertainment
-Apple, Goolge Play, Microsoft
+Apple, Google Play, Microsoft
 2007
 Looking for the most talked about TV shows and movies from the around the world? They’re all on Netflix.

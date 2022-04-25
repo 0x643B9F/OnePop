@@ -5,14 +5,18 @@ import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import javax.swing.BoxLayout;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -24,28 +28,17 @@ import javax.swing.JTextField;
 
 public class Display extends JFrame {
 	
-	public static void main(String[] args) {
-		Login.getUserNames();
-		//App.getAppData();	
-		EventQueue.invokeLater(new Runnable(){
-            @Override
-            public void run(){
-                new Display().setVisible(true);
-            }
-        });
-	}
-	
-    private JSplitPane splitPane = new JSplitPane();
-    private JSplitPane bottomSplitPane = new JSplitPane();
+	private JSplitPane splitPane = new JSplitPane();
+    private JSplitPane bottomSP = new JSplitPane();
     private JSplitPane middleSP = new JSplitPane();
     
     private JPanel topPanel = new JPanel();
-    private JLabel onePopLabel = new JLabel("One Pop");
-    private JButton loginButton = new JButton("Login");
+    private JLabel onePopLabel = new JLabel();
+    private JButton loginButton = new JButton("    Login    ");
     
     private JPanel leftPanel = new JPanel();
     private JButton homePageB = new JButton("Home Page");
-    private JButton helpPageB = new JButton("Help Page");
+    private JButton helpPageB = new JButton(" Help Page ");
     private JButton loungePageB = new JButton("Lounge Page");
     
     private JTextArea searchBar = new JTextArea();
@@ -53,10 +46,11 @@ public class Display extends JFrame {
     private JButton searchButton = new JButton("Search");
     
     private JPanel mainPanel = new JPanel();
-    private JTextArea mainDisplay = new JTextArea();
     private JScrollPane mainScroll = new JScrollPane();
     
     private JPanel loginPanel = new JPanel();
+    private JPanel helpPanel = new JPanel();
+    private JLabel helpPage = new JLabel("<html>Welcome to One Pop Repository's Help Page. 3A's Studio <br/>blahblahblah</html>\", SwingConstants.CENTER");
     
     private JLabel uNameLabel = new JLabel("Plese enter user name: ");
     private JTextArea uNameText = new JTextArea();
@@ -65,25 +59,56 @@ public class Display extends JFrame {
     private JTextArea pWordText = new JTextArea();
     private JButton enterButton = new JButton("Enter");
     
-
-	public Display() {
+    private int j = 0;
+	
+    public Display() {
 		//Creating the window
 		setTitle("One Pop Repository");
 		setPreferredSize(new Dimension(1280, 720));
 		setResizable(false);
 		getContentPane().setLayout(new GridLayout());
 		
+		//Making base pane (Top JPanel and Bottom JSplitPanes)
 		add(splitPane);
 		splitPane.setDividerLocation(150);  
 		splitPane.setOrientation(JSplitPane.VERTICAL_SPLIT);
 		splitPane.setEnabled(false);
 		splitPane.setTopComponent(topPanel);
-		splitPane.setBottomComponent(bottomSplitPane);
+		//bottomSplitPane will have Panel on left side and anoth Split Pane on the right
+		splitPane.setBottomComponent(bottomSP);
 		
-		topPanel.setLayout(new FlowLayout());
+		//Creating Top Panel with Picture Label
 		topPanel.add(onePopLabel);
-		topPanel.add(loginButton);
+		onePopLabel.setIcon(new ImageIcon("C:\\OP.png"));
 		
+		//Making 2nd layer pane (Left JPanel and Right JSplitPane)
+		bottomSP.setDividerLocation(200);
+		bottomSP.setOrientation(JSplitPane.HORIZONTAL_SPLIT);
+		bottomSP.setEnabled(false);
+		bottomSP.setLeftComponent(leftPanel);
+		
+		//Making Home Page Button
+		leftPanel.add(homePageB);
+//		homePageB.addActionListener((new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				searchButton.a
+//			}
+//		}));
+		
+		leftPanel.add(loungePageB);
+		
+		//Making Help Page Button
+		leftPanel.add(helpPageB);
+		helpPageB.addActionListener((new ActionListener() {
+			public void actionPerformed(ActionEvent a) {
+				middleSP.setBottomComponent(helpPanel);
+				helpPanel.add(helpPage);
+				repaint();
+			}
+		}));
+		
+		//Making Login Button
+		leftPanel.add(loginButton);
 		loginButton.addActionListener((new ActionListener() {
 			public void actionPerformed(ActionEvent a) {
 				middleSP.setBottomComponent(loginPanel);
@@ -97,7 +122,7 @@ public class Display extends JFrame {
 				repaint();
 			}
 		}));
-		
+		//Making "Enter" Button for Login Page
 		enterButton.addActionListener((new ActionListener() {
 			public void actionPerformed(ActionEvent a) {
 				String uName = uNameText.getText();
@@ -120,42 +145,65 @@ public class Display extends JFrame {
 			}
 		}));
 		
-		bottomSplitPane.setDividerLocation(200);
-		bottomSplitPane.setOrientation(JSplitPane.HORIZONTAL_SPLIT);
-		bottomSplitPane.setEnabled(false);
-		bottomSplitPane.setLeftComponent(leftPanel);
-		leftPanel.add(homePageB);
-		leftPanel.add(loungePageB);
-		leftPanel.add(helpPageB);
-		bottomSplitPane.setRightComponent(middleSP);
-		
+		//Making 3rd layer SplitPane (Top JPanel and Bottom JPanel)
+		bottomSP.setRightComponent(middleSP);
 		middleSP.setDividerLocation(35);
 		middleSP.setOrientation(JSplitPane.VERTICAL_SPLIT);
 		middleSP.setEnabled(false);
 		middleSP.setTopComponent(searchPanel);
 		searchBar.setSize(80, 25);
-		
-		searchPanel.setLayout(new FlowLayout());
-		searchBar.setBounds(40, 39, 105, 20);
 		searchBar.setColumns(40);
+		
+		//Making 
 		searchPanel.add(searchBar);
 		searchPanel.add(searchButton);
+		searchButton.addActionListener((new ActionListener() {
+			public void actionPerformed(ActionEvent a) {
+				String searchString = searchBar.getText();
+				searchBar.setText("");
+				ArrayList<App> apps = Search.search(searchString);
+				displayAppButtons(apps);
+				mainScroll.setViewportView(mainPanel);
+				mainPanel.setPreferredSize(new Dimension(1000, (j*155)));
+				middleSP.setBottomComponent(mainScroll);
+				repaint();
+			}
+		}));
 		
-		middleSP.setBottomComponent(mainPanel);
-		mainPanel.add(mainScroll);
-		mainScroll.setViewportView(mainDisplay);
-		mainDisplay.setEditable(false);
+		displayAppButtons(Search.appsList);
+		
+		mainScroll.setViewportView(mainPanel);
+		mainPanel.setPreferredSize(new Dimension(1000, (j*155)));
+		middleSP.setBottomComponent(mainScroll);
+		
 		
 		pack();
 	}
 	
-	private void changePage() {
-		
+	private void displayAppButtons(ArrayList<App> a) {
+		j = 0;
+		mainPanel.removeAll();
+		for(int i = 0; i < a.size(); i++) {
+			mainPanel.add(makeButton(a.get(i)));
+			j++;
+		}
+	} 
+	
+	private JButton makeButton(App a) {
+		JButton app = new JButton(a.displayExtended());
+		app.setPreferredSize(new Dimension(1000, 150));
+		return app;
 	}
 	
-	private JButton makeLabel(App a) {
-		return new JButton(a.displayBasic());
+	public static void main(String[] args) {
+		Login.getUserNames();
+		Search.getApps();
+		EventQueue.invokeLater(new Runnable(){
+            @Override
+            public void run(){
+                new Display().setVisible(true);
+            }
+        });
 	}
-	
 
 }
